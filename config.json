@@ -1,0 +1,23 @@
+{
+    "proxy": "",
+    "db_hours": 2,
+    "bot": {
+        "feishu": {
+            "enabled": true,
+            "secrets": "FEISHU_KEY",
+            "key": ""
+        }
+    },
+    "keywords": {
+        "vendor": [
+            "Apache",
+            "Cisco"
+        ],
+        "product": [
+            "Sqlite"
+        ],
+        "others": [
+            "overflow"
+        ]
+    }
+}

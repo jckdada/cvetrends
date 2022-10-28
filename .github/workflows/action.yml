@@ -1,0 +1,39 @@
+# https://docs.github.com/cn/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Update cvetrends
+
+# 定时5分钟
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Push articles
+        env:
+          FEISHU_KEY: ${{ secrets.FEISHU_KEY }}
+        run: python3 cvetrends.py -t day
+
+      - name: Commit
+        run: |
+          git diff
+          git config --global user.email firmianay@gmail.com
+          git config --global user.name firmianay
+          git add data
+          git commit -m "Update `date +'%T'`" || true
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.MY_GITHUB_TOKEN }}
