@@ -30,7 +30,7 @@ jobs:
           git diff
           git config --global user.email firmianay@gmail.com
           git config --global user.name firmianay
-          git add data
+          git add db
           git commit -m "Update `date +'%T'`" || true
 
       - name: Push changes
